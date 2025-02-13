@@ -1,4 +1,4 @@
-# etf_analyse
+# Profit ETF nach Anlagehorizont
 
 Es werden ETF untersucht, das MSCI mit Schwellenländer und Industrieländer:
 
@@ -7,6 +7,8 @@ Es werden ETF untersucht, das MSCI mit Schwellenländer und Industrieländer:
 Oder nur das MSCI World mit Industrieländer:
 
 <https://finance.yahoo.com/quote/XDWD.L/>
+
+Es werden 1, 30 & 90 Tage, 1-10 Jahre Anlagehorizante untersucht. Dabei wird das beste Ergebnis, schlechteste Ergebnis und der Median in diesen Anlagedauern dargestellt. Dabei zeigt sich, ab 5 Jahren waren historisch keine Verluste realisierbar. Egal zu welchem Zeitpunkt investiert worden ist.
 
 # iShares MSCI ACWI UCITS ETF USD (Acc) (ISAC.L)
 

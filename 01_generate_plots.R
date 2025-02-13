@@ -2,9 +2,13 @@ library(tidyverse)
 library(lubridate)
 library(quantmod)
 
+
+# load data ---------------------------------------------------------------
 getSymbols("ISAC.L")
 getSymbols("XDWD.L")
 
+
+# MSCI ACWI ---------------------------------------------------------------
 msci_acwi <- ISAC.L
 msci_acwi <- msci_acwi %>% 
   as.data.frame() %>% 
@@ -16,6 +20,7 @@ msci_acwi <- msci_acwi %>%
          date_md = paste0(month(date),"-",day(date)) %>% as.Date(format="%m-%d")) %>% 
   as_tibble()
 
+# ergänze fehlende Daten (z.B. Wochende)
 msci_acwi <- tibble(date = seq(as.Date("2011-10-21"), Sys.Date(), by="days")) %>%
   left_join(msci_acwi) %>% 
   mutate(
@@ -25,10 +30,10 @@ msci_acwi <- tibble(date = seq(as.Date("2011-10-21"), Sys.Date(), by="days")) %>
     kurs = ifelse(is.na(kurs), lag(kurs), kurs)
   )
 
+# anpassung namen
 names(msci_acwi) <- names(msci_acwi) %>% str_replace("ISAC.L.", "") %>% tolower()
 
-msci_acwi %>% glimpse()
-
+# volativität
 msci_acwi %>% 
   mutate(per = 100*(kurs - lag(kurs, n=1))/lag(kurs, n=1)) %>% 
   filter(date > Sys.Date()-years(1),
@@ -36,7 +41,7 @@ msci_acwi %>%
   mutate(vol = per - mean(per)) %>% 
   summarise(vol = sqrt(mean(vol^2)))
 
-# totaler verlauf
+## plot totaler verlauf ---------------------------------------------------------
 msci_acwi %>% 
   filter(!is.na(year)) %>% 
   ggplot(aes(x = date,
@@ -46,9 +51,10 @@ msci_acwi %>%
   labs(title = "iShares MSCI ACWI UCITS ETF USD (Acc)") +
   theme_minimal()
 
-ggsave("www/msci_acwi_total.png", units = "px",
+ggsave("www/msci_acwi_total.png", units = "px", bg = "white",
        height = 500, width = 1000, dpi = 120)
 
+## plot verlauf nach anlagehorizont ---------------------------------------------------------
 msci_acwi %>% 
   mutate(
     percent_t1 = (kurs - lag(kurs, n=1))/lag(kurs, n=1),
@@ -94,14 +100,10 @@ msci_acwi %>%
   scale_y_continuous(labels = scales::percent, name = "") +
   theme_minimal()
 
-ggsave("www/msci_acwi_horizont.png", units = "px",
+ggsave("www/msci_acwi_horizont.png", units = "px", bg = "white",
        height = 500, width = 1000, dpi = 120)
 
-
-
-
-
-
+# MSCI WORLD ---------------------------------------------------------------
 msci_world <- XDWD.L
 msci_world <- msci_world %>% 
   as.data.frame() %>% 
@@ -113,6 +115,7 @@ msci_world <- msci_world %>%
          date_md = paste0(month(date),"-",day(date)) %>% as.Date(format="%m-%d")) %>% 
   as_tibble()
 
+# ergänze fehlende Daten (z.B. Wochende)
 msci_world <- tibble(date = seq(as.Date("2014-07-22"), Sys.Date(), by="days")) %>%
   left_join(msci_world) %>% 
   mutate(
@@ -122,10 +125,10 @@ msci_world <- tibble(date = seq(as.Date("2014-07-22"), Sys.Date(), by="days")) %
     kurs = ifelse(is.na(kurs), lag(kurs), kurs)
   )
 
+# anpassung namen
 names(msci_world) <- names(msci_world) %>% str_replace("ISAC.L.", "") %>% tolower()
 
-msci_world %>% glimpse()
-
+# volativität
 msci_world %>% 
   mutate(per = 100*(kurs - lag(kurs, n=1))/lag(kurs, n=1)) %>% 
   filter(date > Sys.Date()-years(1),
@@ -134,7 +137,7 @@ msci_world %>%
   summarise(vol = sqrt(mean(vol)))
 
 
-# totaler verlauf
+## plot totaler verlauf ---------------------------------------------------------
 msci_world %>% 
   filter(!is.na(year)) %>% 
   ggplot(aes(x = date,
@@ -144,9 +147,10 @@ msci_world %>%
   labs(title = "Xtrackers MSCI World UCITS ETF 1C") +
   theme_minimal()
 
-ggsave("www/msci_world_total.png", units = "px",
+ggsave("www/msci_world_total.png", units = "px", bg = "white",
        height = 500, width = 1000, dpi = 120)
 
+## plot verlauf nach anlagehorizont ---------------------------------------------------------
 msci_world %>% 
   mutate(
     percent_t1 = (kurs - lag(kurs, n=1))/lag(kurs, n=1),
@@ -192,7 +196,7 @@ msci_world %>%
   scale_y_continuous(labels = scales::percent, name = "") +
   theme_minimal()
 
-ggsave("www/msci_world_horizont.png", units = "px",
+ggsave("www/msci_world_horizont.png", units = "px", bg = "white",
        height = 500, width = 1000, dpi = 120)
 
 
