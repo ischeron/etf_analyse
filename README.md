@@ -20,6 +20,10 @@ Eine kurze Anlagedauer von weniger als 3 Monate, resultiert in kleine maximale P
 
 ![](www/msci_acwi_horizont.png)
 
+Die Durchschnittliche Rendite p.a. konvergiert bei langem Anlagehorizont zum Median.
+
+![](www/msci_acwi_horizont_pa.png)
+
 # Xtrackers MSCI World UCITS ETF 1C (XDWD.L)
 
 ![](www/msci_world_total.png)
@@ -27,3 +31,7 @@ Eine kurze Anlagedauer von weniger als 3 Monate, resultiert in kleine maximale P
 In der MSCI WOrld gelten identische Beobachtungen, wie im ACWI mit Schwellenländer. Das liegt an der grossen Überschneidung des Portfolios.
 
 ![](www/msci_world_horizont.png)
+
+Die Durchschnittliche Rendite p.a. konvergiert nach 10 Jahren zum Median.
+
+![](www/msci_world_horizont_pa.png)
