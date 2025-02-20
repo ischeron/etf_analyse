@@ -1,3 +1,5 @@
+# Analyse ETF's
+
 # Profit ETF nach Anlagehorizont
 
 Es werden ETF untersucht, das MSCI mit Schwellenländer und Industrieländer:
@@ -35,3 +37,15 @@ In der MSCI WOrld gelten identische Beobachtungen, wie im ACWI mit Schwellenlän
 Die Durchschnittliche Rendite p.a. konvergiert nach 10 Jahren zum Median.
 
 ![](www/msci_world_horizont_pa.png)
+
+# ETF Prediction
+
+Der log Kurs bei Schliessung der Börse wurde mit einer Zeitreihe ARIMA(0,0,5) modelliert.
+
+Die Ergebnise sind:
+
+![](www/msci_world_arima_total.png)
+
+oder mit einem Zoom der letzten 40 Tage:
+
+![](www/msci_world_arima.png)
